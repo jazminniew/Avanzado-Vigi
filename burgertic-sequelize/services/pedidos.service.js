@@ -32,14 +32,14 @@ const getPedidosByUser = async (idUsuario) => {
 const pedidos = await Pedido.findAll({
       where:{idUsuario},
     include:{
-    model:PedidoPñato,
-    inxlude:{ model: Plato},
+    model:PedidoPlato,
+    include:{ model: Plato},
     },
     });
     
-    if (!pedidos.lenght) retirn [];
+    if (!pedidos.lenght) return [];
     
-    retirn pedidos.map(pedido=> ({
+    return pedidos.map(pedido=> ({
     ...pedido.toJSON(),
     platos:pedido.PedidoPlatos.map(pedidoPlato => ({
     ...pedidoPlato.Plato.toJSON(),
@@ -49,97 +49,47 @@ const pedidos = await Pedido.findAll({
     };
 
 const createPedido = async (idUsuario, platos) => {
-    const client = new Client(config);
-    await client.connect();
-
-    try {
-        // ACÁ SE PODRÍA HACER EN ETAPAS
-        // 1. Validar que los platos existan
-        // 2. Crear el pedido
-        // 3. Agregar los platos al pedido
-
-        // Así, no hace falta introducir el concepto de transacciones o rollback
-
-        const { rows } = await client.query(
-            "INSERT INTO pedidos (id_usuario, fecha, estado) VALUES ($1, $2, 'pendiente') RETURNING id",
-            [idUsuario, new Date()]
-        );
-
-        const idPedido = rows[0].id;
-
-        for (let plato of platos) {
-            const { rows } = await client.query(
-                "SELECT * FROM platos WHERE id = $1",
-                [plato.id]
-            );
-
-            if (rows.length < 1) {
-                await client.query("DELETE FROM pedidos WHERE id = $1", [
-                    idPedido,
-                ]);
-                await client.query(
-                    "DELETE FROM pedidos_platos WHERE id_pedido = $1",
-                    [idPedido]
-                );
-                throw new Error("Plato no encontrado");
-            }
-
-            await client.query(
-                "INSERT INTO pedidos_platos (id_pedido, id_plato, cantidad) VALUES ($1, $2, $3)",
-                [idPedido, plato.id, plato.cantidad]
-            );
-        }
-
-        await client.end();
-        return rows;
-    } catch (error) {
-        await client.end();
-        throw error;
-    }
-};
+    const idPlatos = platos.map(plato => plato.id);
+    const platos = await Plato.findAll({where: {id: idPlatod}});
+    if(platos.lenght !== platos.lenght) throw new Error ("Hay platos que no existen");
+    
+    const pedido = await Pedido.create({
+    idUsuario,
+    fecha: new Date(),
+    estado: "pendiente",
+    });
+    
+    await Promise.all(
+    platos.map(plato=>
+    PedidoPlato.create({
+    idPedido: pedido.id,
+    idPlato: plato.id,
+    cantidad: plato.cantidad,
+    })
+    )
+    );
+    return pedido;
+    );
 
 const updatePedido = async (id, estado) => {
-    if (
-        estado !== "aceptado" &&
-        estado !== "en camino" &&
-        estado !== "entregado"
-    )
-        throw new Error("Estado inválido");
+ const estados = ["pendiente", "aceptado", "en camino", "entregado", "cancelado"];
+ if (!estados.includes(estado)) throw new Error ("Estado Invalido");
 
-    const client = new Client(config);
-    await client.connect();
+const pedido = await Pedido.findByPk(id);
+if(!pedido) throw new Error ("Pedido no encontrado");
 
-    try {
-        const { rows } = await client.query(
-            "UPDATE pedidos SET estado = $1 WHERE id = $2",
-            [estado, id]
-        );
-
-        await client.end();
-        return rows;
-    } catch (error) {
-        await client.end();
-        throw error;
-    }
+pedido.estado = estado;
+await pedido.save();
+return pedido;
 };
+
 
 const deletePedido = async (id) => {
-    const client = new Client(config);
-    await client.connect();
+ const pedido = await Pedido.findByPk(id);
+if (!pedido) throw new Error("Pedido no encontrado");
 
-    try {
-        const { rows } = await client.query(
-            "DELETE FROM pedidos WHERE id = $1",
-            [id]
-        );
-
-        await client.end();
-        return rows;
-    } catch (error) {
-        await client.end();
-        throw error;
-    }
-};
+await Pedido.destroy();
+return pedido;
 
 export default {
     getPedidos,
@@ -148,4 +98,5 @@ export default {
     createPedido,
     updatePedido,
     deletePedido,
+    getPlatosByPedido,
 };
