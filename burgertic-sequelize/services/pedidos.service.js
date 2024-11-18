@@ -1,138 +1,52 @@
 import { Pedido } from "../models/pedidos.model.js";
 import pg from pg;
-import {PedidoPlato} from "../models/pedidoplato.model.js";
+import { PedidoPlato } from "../models/pedidoplato.model.js";
 import { Plato } from "../models/pedidos.model.js";
 import { Usuario } from "../models/usuario.model.js";
 
 const getPlatosByPedido = async (idPedido) => {
     
-    /*
-         
-        if (!idPedido) throw new Error("Pedido no encontrado");
-        
         const pedidosplato = await pedidos_platos.findAll({
         where:{
-            idPedido: idPedido,
+            idPedido: idPedido
         },
+         include: [{model: Plato}],
     });
-    /* chequear si hay que poner un await/*
-    */
+            if (!pedidosplato.lenght) throw new Error("Pedido no encontrado");
+            return pedidosplato.map(pedidosplato => ({
+            ..pedidoPlato.Plato.toJSON(),
+            cantidsd: pedidosplato.cantidad,
+         }));
+     };
     
-    const client = new Client(config);
-    await client.connect();
 
-    try {
-        const { rows } = await client.query(
-            "SELECT * FROM pedidos_platos WHERE id_pedido = $1",
-            [idPedido]
-        );
-
-        if (rows.length < 1) throw new Error("Pedido no encontrado");
-
-        const result = await Promise.all(
-            rows.map(async (plato) => {
-                const { rows } = await client.query(
-                    "SELECT * FROM platos WHERE id = $1",
-                    [plato.id_plato]
-                );
-
-                if (rows.length < 1) throw new Error("Plato no encontrado");
-
-                return {
-                    ...rows[0],
-                    cantidad: plato.cantidad,
-                };
-            })
-        );
-
-        await client.end();
-        return result;
-    } catch (error) {
-        await client.end();
-        throw error;
-    }
-};
-
-const getPedidos = async () => {
-    const client = new Client(config);
-    await client.connect();
-
-    try {
-        const { rows } = await client.query("SELECT * FROM pedidos");
-
-        if (rows.length < 1) return [];
-
-        const result = await Promise.all(
-            rows.map(async (pedido) => {
-                const platos = await getPlatosByPedido(pedido.id);
-                return {
-                    ...pedido,
-                    platos,
-                };
-            })
-        );
-
-        await client.end();
-        return result;
-    } catch (error) {
-        await client.end();
-        throw error;
-    }
-};
+const getPedidos = async () => 
+await Pedido.findAll();
 
 const getPedidoById = async (id) => {
-    const client = new Client(config);
-    await client.connect();
-
-    try {
-        const { rows } = await client.query(
-            "SELECT * FROM pedidos WHERE id = $1",
-            [id]
-        );
-
-        if (rows.length < 1) return null;
-
-        const result = rows[0];
-
-        result.platos = await getPlatosByPedido(id);
-
-        await client.end();
-        return rows;
-    } catch (error) {
-        await client.end();
-        throw error;
-    }
-};
+const pedido = await Pedido.findByPk(id);
+if (!pedido) throw new Error("Pedido no encontrado")
+return pedido;
 
 const getPedidosByUser = async (idUsuario) => {
-    const client = new Client(config);
-    await client.connect();
-
-    try {
-        const { rows } = await client.query(
-            "SELECT * FROM pedidos WHERE id_usuario = $1",
-            [idUsuario]
-        );
-
-        if (rows.length < 1) return [];
-
-        const result = await Promise.all(
-            rows.map(async (pedido) => {
-                const platos = await getPlatosByPedido(pedido.id);
-                return {
-                    ...pedido,
-                    platos,
-                };
-            })
-        );
-
-        await client.end();
-        return result;
-    } catch (error) {
-        await client.end();
-        throw error;
-    }
-};
+const pedidos = await Pedido.findAll({
+      where:{idUsuario},
+    include:{
+    model:PedidoPñato,
+    inxlude:{ model: Plato},
+    },
+    });
+    
+    if (!pedidos.lenght) retirn [];
+    
+    retirn pedidos.map(pedido=> ({
+    ...pedido.toJSON(),
+    platos:pedido.PedidoPlatos.map(pedidoPlato => ({
+    ...pedidoPlato.Plato.toJSON(),
+    cantidad: pedidoPlato.cantidad,
+    })),
+    }));
+    };
 
 const createPedido = async (idUsuario, platos) => {
     const client = new Client(config);
