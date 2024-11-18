@@ -24,13 +24,15 @@ Usuario.init(
         },
         admin: {
             type: DataTypes.BOOLEAN,
-        //FALTA ALGO
+            defaultValue:false
+        //LISTO
         },
         
     },
 {
     sequelize,
-    modelName: "usuarios", //O Usuario
+    modelName: "Usuario",
+    tableName:"usuarios",
     timestamps: false,
 }
 );
