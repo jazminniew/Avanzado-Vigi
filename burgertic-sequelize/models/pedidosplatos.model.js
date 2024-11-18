@@ -12,17 +12,27 @@ PedidosPlatos.init(
         },
         id_pedido: {
             type: DataTypes.INTEGER
+            references:{
+            model: 'Pedidos',
+            key: 'id',
+            },
         }, 
         id_plato: {
             type: DataTypes.INTEGER
+            references:{
+            model: 'Platos',
+            key: 'id',
+            },
         },
         cantidad: {
             type: DataTypes.INTEGER
-        }
+            defaultValue: 1,
+        },
     }, 
     {
         sequelize,
-        modelName: "pedidos_platos",
+        modelName: 'PedidoPlato',
+        tableName: "pedidos_platos",
         timestamps: false,
     }
 );
