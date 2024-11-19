@@ -51,8 +51,9 @@ export const verifyAdmin = async (req, res, next) => {
 
         const usuario = await UsuariosService.getUsuarioById(req.idUsuario);
 
+
         if (!usuario.admin)
-            return res.status(403).json({ message: "No autorizado" });
+            return res.status(403).json({ message: "No es admin" });
 
         next();
     } catch (error) {

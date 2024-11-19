@@ -1,13 +1,13 @@
 # Definir variable para el token
-@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzI3NDQzODk1LCJleHAiOjE3Mjc0NDU2OTV9.Fo8DwHIN99sn37Y3QxMBvzevZIk1Ud5I50IeUzAHBLE
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzMyMDI4MjEyLCJleHAiOjE3MzIwMzAwMTJ9.Jksp-xQyN_wY9HPATA_k0aKimtw5nWF0N7TxwNWH-dQ
 POST http://localhost:9000/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre": "Luli", 
-    "apellido":"Dayan", 
-    "email": "luli@gmail.com",
-    "password": "1111"
+    "nombre": "Jaz", 
+    "apellido":"Niew", 
+    "email": "jaz@gmail.com",
+    "password": "jazn"
 }
 
 
@@ -16,8 +16,8 @@ POST http://localhost:9000/auth/login HTTP/1.1
 Content-Type: application/json
 
 {
-        "email": "luli@gmail.com",
-        "password": "1111"
+        "email": "jaz@gmail.com",
+        "password": "jazn"
 }
 ### 
 
@@ -55,7 +55,7 @@ Authorization: Bearer {{token}}
 ###
 
 ### Comenzar un pedido
-PUT http://localhost:9000/pedidos/1/comenzar HTTP/1.1
+PUT http://localhost:9000/pedidos/3/comenzar HTTP/1.1
 Authorization: Bearer {{token}}
 
 
