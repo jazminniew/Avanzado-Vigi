@@ -24,7 +24,7 @@ Pedido.init(
             type: DataTypes.DATE,
         },
         estado: {
-            type: DataTypes.VARCHAR(50),
+            type: DataTypes.STRING(50),
         }, //CHEQUEAR ESTOO
     },
     {

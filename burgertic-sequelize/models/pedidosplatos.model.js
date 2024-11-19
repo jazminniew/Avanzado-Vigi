@@ -11,21 +11,21 @@ PedidosPlatos.init(
             primaryKey: true,
         },
         id_pedido: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
             references:{
             model: 'Pedidos',
             key: 'id',
             },
         }, 
         id_plato: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
             references:{
             model: 'Platos',
             key: 'id',
             },
         },
         cantidad: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
             defaultValue: 1,
         },
     }, 

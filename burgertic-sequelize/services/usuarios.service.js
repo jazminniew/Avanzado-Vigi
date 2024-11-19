@@ -1,13 +1,13 @@
 import { Usuario } from "../models/usuarios.model.js"; 
 
-const getUsuarioByEmail = async (mail) => 
-     await Usuario.findAll({
+const getUsuarioByEmail = async (mail) => {
+    const usuario = await Usuario.findAll({
         where: {
             email: mail
         }
     }); 
-
-
+    return usuario[0]
+}
 /*const getUsuarioByEmail = async (email) => {
     const client = new Client(config);
     await client.connect();
@@ -28,11 +28,11 @@ const getUsuarioByEmail = async (mail) =>
 }; */
 
 const getUsuarioById = async (ID) =>
-await Usuario.findAll({
-        where: {
-            id: ID,
-        },
-    }); 
+    await Usuario.findAll({
+            where: {
+                id: ID,
+            },
+        }); 
 
 
 
