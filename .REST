@@ -1,5 +1,5 @@
 # Definir variable para el token
-@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzMyMDI4MjEyLCJleHAiOjE3MzIwMzAwMTJ9.Jksp-xQyN_wY9HPATA_k0aKimtw5nWF0N7TxwNWH-dQ
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzMyMjA3MzAwLCJleHAiOjE3MzIyMDkxMDB9.2mk2JCRuZlubnlco0Nj39q9XOLY_nnDb6n3xQXMU9ew
 POST http://localhost:9000/auth/register HTTP/1.1
 Content-Type: application/json
 
@@ -12,7 +12,7 @@ Content-Type: application/json
 
 
 ### 
-POST http://localhost:9000/auth/login HTTP/1.1
+POST http://localhost:9000/auth/login HTTP/1.16nkm
 Content-Type: application/json
 
 {
