@@ -1,12 +1,12 @@
 # Definir variable para el token
-@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzMyMjA3MzAwLCJleHAiOjE3MzIyMDkxMDB9.2mk2JCRuZlubnlco0Nj39q9XOLY_nnDb6n3xQXMU9ew
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzMyMjA5MTYyLCJleHAiOjE3MzIyMTA5NjJ9.Sv_AtO80N71V_J54G_JK4IaQzYUlLyYAt_b9pBLXgoI
 POST http://localhost:9000/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
     "nombre": "Jaz", 
     "apellido":"Niew", 
-    "email": "jaz@gmail.com",
+    "email": "holaz@gmail.com",
     "password": "jazn"
 }
 
