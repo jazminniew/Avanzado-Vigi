@@ -31,7 +31,7 @@ const createPedido = async (idUsuario, platos) => {
     const platosDB = await Plato.findAll({where: {id: idPlatos}});
     if(platosDB.lenght !== platos.lenght) throw new Error ("Hay platos que no existen");
     const pedido = await Pedido.create({
-        idUsuario,
+        id_usuario: 1,
         fecha: new Date(),
         estado: "pendiente",
     });

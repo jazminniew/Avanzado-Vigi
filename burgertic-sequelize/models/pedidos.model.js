@@ -11,7 +11,7 @@ Pedido.init(
             primaryKey: true,
         },
 
-        idUsuario: {
+        id_usuario: {
             type: DataTypes.INTEGER,
             references: 
             {
@@ -33,3 +33,4 @@ Pedido.init(
         timestamps: false,
     }
 );
+

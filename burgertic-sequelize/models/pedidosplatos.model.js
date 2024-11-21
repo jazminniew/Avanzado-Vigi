@@ -12,6 +12,7 @@ PedidosPlatos.init(
         },
         id_pedido: {
             type: DataTypes.INTEGER,
+            allowNull: false,
             references:{
             model: 'Pedidos',
             key: 'id',
