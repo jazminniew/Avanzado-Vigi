@@ -30,16 +30,21 @@ const createPedido = async (idUsuario, platos) => {
     const idPlatos = platos.map(plato => plato.id);
     const platosDB = await Plato.findAll({where: {id: idPlatos}});
     if(platosDB.lenght !== platos.lenght) throw new Error ("Hay platos que no existen");
+
     const pedido = await Pedido.create({
-        id_usuario: 1,
+        id_usuario: idUsuario,
         fecha: new Date(),
         estado: "pendiente",
     });
+
+    console.log("Pedido creado:", pedido); // Para verificar que el pedido se creó correctamente
+    console.log("Pedido ID:", pedido.id);  // Este ID debe ser válido
+
     await Promise.all(
         platos.map(plato=>
             PedidosPlatos.create({
-                idPedido: pedido.id,
-                idPlato: plato.id,
+                id_pedido: pedido.id,
+                id_plato: plato.id,
                 cantidad: plato.cantidad,
             })
         )

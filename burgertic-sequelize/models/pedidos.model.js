@@ -13,9 +13,7 @@ Pedido.init(
 
         id_usuario: {
             type: DataTypes.INTEGER,
-            references: 
-            {
-
+            references: {
                 model: 'usuarios',
                 key: 'id',
             },
@@ -29,7 +27,8 @@ Pedido.init(
     },
     {
         sequelize,
-        modelName: "pedidos", //O Pedido
+        modelName: 'Pedidos',
+        tableName: 'pedidos',
         timestamps: false,
     }
 );

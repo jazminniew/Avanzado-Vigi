@@ -59,4 +59,4 @@ export const verifyAdmin = async (req, res, next) => {
         console.error(error);
         return res.status(401).json({ message: "Token inválido" });
     }
-};
+};  

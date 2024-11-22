@@ -14,7 +14,7 @@ PedidosPlatos.init(
             type: DataTypes.INTEGER,
             allowNull: false,
             references:{
-            model: 'Pedidos',
+            model: 'pedidos',
             key: 'id',
             },
         }, 
@@ -29,11 +29,12 @@ PedidosPlatos.init(
             type: DataTypes.INTEGER,
             defaultValue: 1,
         },
+        
     }, 
     {
         sequelize,
         modelName: 'PedidoPlato',
-        tableName: "pedidos_platos",
+        tableName: 'pedidos_platos',
         timestamps: false,
     }
 );
