@@ -27,15 +27,15 @@ const getUsuarioByEmail = async (mail) => {
     }
 }; */
 
-const getUsuarioById = async (ID) =>
-    await Usuario.findAll({
-            where: {
-                id: ID,
-            },
-        }); 
-
-
-
+const getUsuarioById = async (ID) => {
+    const usuario = await Usuario.findOne({
+        where: {
+            id: ID,
+        },
+    }); 
+    return usuario;
+}
+  
        /* const client = new Client(config);
     await client.connect();
     try {

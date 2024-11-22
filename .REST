@@ -1,12 +1,13 @@
 # Definir variable para el token
-@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzMyMjc4MDQ0LCJleHAiOjE3MzIyNzk4NDR9.9sLxfj96sXy6DgtpP8EoOIh93UkLZCScOZXLqnICDcI
+@token =eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NywiaWF0IjoxNzMyMjc5NzU5LCJleHAiOjE3MzIyODE1NTl9.xqXPEolP8RBPAnSbXDTjqQ24CPnrwIyC9kTntcU95xw
+POST http://localhost:9000/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre": "Jaz", 
-    "apellido":"Niew", 
-    "email": "holaz@gmail.com",
-    "password": "jazn"
+    "nombre": "Oliver", 
+    "apellido":"Safdieh", 
+    "email": "OliverSafdieh@gmail.com",
+    "password": "OSafdieh"
 }
 
 
@@ -15,8 +16,8 @@ POST http://localhost:9000/auth/login HTTP/1.16nkm
 Content-Type: application/json
 
 {
-        "email": "jaz@gmail.com",
-        "password": "jazn"
+        "email": "OliverSafdieh@gmail.com",
+        "password": "OSafdieh"
 }
 ### 
 
@@ -61,12 +62,12 @@ Authorization: Bearer {{token}}
 ###
 
 ### Entregar un pedido
-PUT http://localhost:9000/pedidos/4/entregar HTTP/1.1
+PUT http://localhost:9000/pedidos/3/entregar HTTP/1.1
 Authorization: Bearer {{token}}
 
 
 ###
 
 ### Eliminar un pedido
-DELETE http://localhost:9000/pedidos/5 HTTP/1.1
+DELETE http://localhost:9000/pedidos/2 HTTP/1.1
 Authorization: Bearer {{token}}
